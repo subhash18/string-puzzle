@@ -27,7 +27,8 @@ public class StringAccumulatorApplication {
 	public int add(String str) {
 		int summation = 0;
 		/**
-		 * TODO : 3.b. The following input is NOT ok: “1,\n” (don’t need to prove it - just clarifying).
+		 * Clarification/Assumption : 3.b. The following input is NOT ok: “1,\n” (don’t need to prove it - just clarifying).
+		 * This is just a statement so no test case needed.
 		 */
 		
 		List<String> strParts = SplitStringIntoParts(str);

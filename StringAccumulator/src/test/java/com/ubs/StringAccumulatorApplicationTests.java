@@ -16,6 +16,16 @@ public class StringAccumulatorApplicationTests {
 	}
 	
 	@Test
+	public void testBasicNumberAddWithPureEmptyString() {
+		Assert.assertEquals(0, app.add(""));
+	}
+	
+	@Test
+	public void testBasicNumberAddWithNoDelimeter() {
+		Assert.assertEquals(1, app.add("1"));
+	}
+	
+	@Test
 	public void testBasicNumberAddWithCommaDelimeter() {
 		Assert.assertEquals(3, app.add("1,2"));
 	}
@@ -26,20 +36,11 @@ public class StringAccumulatorApplicationTests {
 	}
 	
 	@Test
-	public void testBasicNumberAddWithNoDelimeter() {
-		Assert.assertEquals(1, app.add("1"));
-	}
-	
-	@Test
 	public void testBasicNumberAddWithEmptyString() {
 		Assert.assertEquals(5, app.add("2,,3"));
 	}
 	
-	@Test
-	public void testBasicNumberAddWithPureEmptyString() {
-		Assert.assertEquals(0, app.add(""));
-	}
-	
+		
 	@Test
 	public void testBasicNumberAddWithUnknownNumbers() {
 		Assert.assertEquals(22, app.add("1,4,5,2,,7,,3"));
@@ -61,6 +62,15 @@ public class StringAccumulatorApplicationTests {
 	}
 	
 	@Test
+	public void testBasicNumberAddWithSpecifiedMultipleDelimiterAndNegativeNumbers() {
+		try {
+			app.add("//*|%\n-1*2%-3");
+		}catch (NegativeNumberException e){
+			Assert.assertEquals("Negatives not allowed[-1, -3]", e.getMessage());
+		}
+	}
+	
+	@Test
 	public void testBasicNumberAddWithSpecifiedSingleDelimiterandIgnoreGreaterThanThousand() {
 		Assert.assertEquals(1003, app.add("//;\n1;2;1000;1001"));
 	}
@@ -75,18 +85,11 @@ public class StringAccumulatorApplicationTests {
 		Assert.assertEquals(6, app.add("//*|%\n1*2%3"));
 	}
 	
-	@Test
-	public void testBasicNumberAddWithSpecifiedMultipleDelimiterAndNegativeNumbers() {
-		try {
-			app.add("//*|%\n-1*2%-3");
-		}catch (NegativeNumberException e){
-			Assert.assertEquals("Negatives not allowed[-1, -3]", e.getMessage());
-		}
-	}
+	
 	
 	@Test
 	public void testBasicNumberAddWithSpecifiedMultipleMultiCharacterDelimiter() {
-		Assert.assertEquals(6, app.add("//***|%%%\n1***2%%%3"));
+		Assert.assertEquals(6, app.add("//***|%%%%\n1***2%%%%3"));
 	}
 
 }
